@@ -1,0 +1,365 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root {
+    --bg-canvas:  #16161a;
+    --bg-panel:   #1c1c21;
+    --bg-panel-2: #202026;
+    --bg-sunken:  #121216;
+    --bg-hover:   #26262d;
+    --bg-raised:  #2a2a32;
+
+    --line:    #2e2e36;
+    --line-2:  #3a3a44;
+    --line-3:  #4a4a56;
+
+    --text:      #eceef1;
+    --text-dim:  #b7bac4;
+    --text-mute: #8b8f9c;
+
+    --accent:    #ff6b1a;
+    --accent-2:  #ff8a3d;
+    --warn:      #e8a33d;
+    --ok:        #3dd68c;
+
+    --radius-lg: 12px;
+    --radius-md: 9px;
+    --radius-sm: 6px;
+    --shadow-panel: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.55);
+}
+
+html, body, [class*="css"] {
+    font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.stApp {
+    background:
+        radial-gradient(1200px 500px at 15% -5%, rgba(255,107,26,0.06), transparent 60%),
+        var(--bg-canvas);
+    color: var(--text);
+}
+
+header[data-testid="stHeader"] { background: transparent; height: 0; display: none; }
+.block-container { max-width: 100%; padding: 2rem 2.4rem 3rem; }
+
+.ico { display: inline-flex; align-items: center; justify-content: center; line-height: 0; }
+.ico svg { display: block; }
+
+/* ============ SIDEBAR ============ */
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #19191e 0%, #15151a 100%);
+    border-right: 1px solid var(--line);
+    min-width: 280px !important;
+}
+[data-testid="stSidebar"] > div:first-child { padding-top: 0 !important; }
+[data-testid="stSidebarUserContent"] { padding-top: 0 !important; }
+[data-testid="stSidebarContent"] { padding-top: 0 !important; }
+[data-testid="stSidebar"] * { color: var(--text); }
+[data-testid="stSidebar"] .block-container { padding: 0 !important; }
+[data-testid="stSidebarNav"] { display: none; }
+
+.brand-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 22px 22px 20px;
+    border-bottom: 1px solid var(--line);
+}
+.logo-mark {
+    width: 36px; height: 36px;
+    border-radius: 9px;
+    background: linear-gradient(145deg, #ff8a3d, #e05500);
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(224,85,0,0.4), inset 0 1px 0 rgba(255,255,255,0.25);
+}
+.brand-text { line-height: 1.3; }
+.brand-name {
+    font-size: 17px; font-weight: 700; letter-spacing: -0.1px;
+}
+.brand-sub {
+    font-size: 11.5px; font-weight: 500; color: var(--text-mute);
+    letter-spacing: 0.04em; text-transform: uppercase; margin-top: 2px;
+}
+
+.nav-section {
+    padding: 26px 22px 10px;
+    font-size: 11.5px; font-weight: 600;
+    letter-spacing: 0.08em; color: var(--text-mute);
+    text-transform: uppercase;
+}
+.nav-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 13px 22px; margin: 4px 10px; border-radius: var(--radius-sm);
+    font-size: 15px; color: var(--text-dim);
+    text-decoration: none !important;
+}
+.nav-item .ico svg { color: var(--accent-2) !important; stroke: var(--accent-2) !important; }
+.nav-item .ico svg[fill="currentColor"] { fill: var(--accent-2) !important; }
+.nav-item:hover { background: var(--bg-hover); color: var(--text); }
+.nav-item.active {
+    background: linear-gradient(90deg, rgba(255,107,26,0.16), rgba(255,107,26,0.03));
+    color: var(--text); font-weight: 600;
+    border: 1px solid rgba(255,107,26,0.28);
+}
+.nav-item.active .ico svg { color: var(--accent-2) !important; stroke: var(--accent-2) !important; }
+.nav-item.disabled { opacity: 0.4; cursor: not-allowed; }
+.nav-item.disabled:hover { background: transparent; color: var(--text-dim); }
+
+/* ============ TOP BAR ============ */
+.topbar {
+    padding-bottom: 24px; margin-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+    text-align: center;
+}
+.page-title {
+    font-size: 30px; font-weight: 700;
+    letter-spacing: -0.3px; line-height: 1.2;
+    margin: 0; color: var(--text);
+}
+.page-sub {
+    font-size: 14.5px; color: var(--text-dim);
+    margin: 11px auto 0; line-height: 1.6; max-width: 680px;
+}
+
+/* ============ PANEL ============ */
+div[data-testid="stVerticalBlockBorderWrapper"] {
+    background: var(--bg-panel) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: var(--radius-lg) !important;
+    padding: 0 !important;
+    box-shadow: var(--shadow-panel);
+}
+div[data-testid="stVerticalBlockBorderWrapper"] > div { padding: 20px 22px; }
+
+.panel-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 16px; padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+}
+.panel-title-row { display: flex; align-items: center; gap: 9px; }
+.panel-title-row .ico { color: var(--accent-2); }
+.panel-title {
+    font-size: 15px; font-weight: 600; color: var(--text);
+}
+.panel-hint {
+    font-size: 11.5px; font-weight: 600; color: var(--text-mute);
+    letter-spacing: 0.04em;
+}
+
+/* ============ FILE UPLOADER ============ */
+div[data-testid="stFileUploader"] {
+    background: var(--bg-sunken);
+    border: 1.5px dashed var(--line-2);
+    border-radius: var(--radius-md);
+    padding: 6px;
+    transition: border-color .15s ease, background .15s ease;
+}
+div[data-testid="stFileUploader"]:hover { border-color: var(--accent); background: #15151b; }
+div[data-testid="stFileUploader"] section { background: transparent; padding: 24px 14px !important; }
+div[data-testid="stFileUploader"] label { color: var(--text-dim) !important; font-size: 14px !important; }
+div[data-testid="stFileUploader"] small { color: var(--text-dim) !important; font-size: 12.5px !important; opacity: 0.95; }
+div[data-testid="stFileUploader"] button {
+    background: var(--bg-raised) !important; border: 1px solid var(--line-2) !important;
+    color: var(--text) !important; font-size: 13.5px !important; border-radius: var(--radius-sm) !important;
+}
+div[data-testid="stFileUploader"] button:hover { border-color: var(--accent) !important; color: var(--accent-2) !important; }
+
+/* Native file uploader chip - icon orange + centered */
+[data-testid="stFileUploaderFile"] {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+}
+[data-testid="stFileUploaderFile"] svg {
+    fill: var(--accent-2) !important;
+    color: var(--accent-2) !important;
+    stroke: var(--accent-2) !important;
+}
+[data-testid="stFileUploaderFileName"] {
+    color: var(--text) !important;
+    text-align: center !important;
+}
+[data-testid="stFileUploaderFileData"] {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+/* ============ BUTTONS ============ */
+div.stButton > button, div.stDownloadButton > button {
+    border-radius: var(--radius-sm);
+    min-height: 48px;
+    font-weight: 600; font-size: 14.5px; letter-spacing: 0.005em;
+    border: 1px solid var(--line-2);
+    background: var(--bg-raised);
+    color: #ffffff;
+    transition: all .14s ease;
+}
+div.stButton > button p, div.stDownloadButton > button p,
+div.stButton > button div, div.stDownloadButton > button div,
+div.stButton > button span, div.stDownloadButton > button span {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+}
+div.stButton > button:hover, div.stDownloadButton > button:hover {
+    background: var(--bg-hover); border-color: var(--accent); color: #ffffff;
+}
+div.stButton > button[kind="primary"] {
+    background: linear-gradient(180deg, var(--accent-2), var(--accent));
+    border: 1px solid var(--accent); color: #ffffff;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.2) inset, 0 4px 14px -4px rgba(255,107,26,0.55);
+}
+div.stButton > button[kind="primary"]:hover {
+    background: linear-gradient(180deg, #ff9a52, var(--accent-2)); border-color: var(--accent-2);
+}
+div.stButton > button:disabled { opacity: 0.35; cursor: not-allowed; }
+div.stButton > button:disabled p, div.stDownloadButton > button:disabled p { color: #ffffff !important; }
+
+/* ============ TABS ============ */
+div[data-testid="stTabs"] div[role="tablist"] {
+    border-bottom: 1px solid var(--line); gap: 36px; background: transparent; padding: 0 4px;
+}
+div[data-testid="stTabs"] button[role="tab"] {
+    font-weight: 600; font-size: 15px; color: var(--text-mute);
+    padding: 14px 4px; border-radius: 0; border: none; background: transparent;
+}
+div[data-testid="stTabs"] button[role="tab"]:hover { color: var(--text-dim); }
+div[data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
+    color: var(--accent-2); box-shadow: inset 0 -2px 0 var(--accent-2);
+}
+div[data-testid="stTabs"] div[role="tablist"] + div { padding-top: 22px; }
+
+/* ============ METRICS ============ */
+div[data-testid="stMetric"] {
+    background: var(--bg-panel-2); padding: 15px 17px;
+    border: 1px solid var(--line); border-radius: var(--radius-sm);
+}
+div[data-testid="stMetricLabel"] {
+    color: var(--text-mute) !important; font-size: 11.5px !important; font-weight: 600 !important;
+    letter-spacing: 0.05em !important; text-transform: uppercase;
+}
+div[data-testid="stMetricValue"] {
+    color: var(--text) !important; font-size: 23px !important; font-weight: 700 !important;
+}
+
+/* ============ TEXT ============ */
+h1,h2,h3,h4,h5 { color: var(--text); font-weight: 600; }
+.stCaption, [data-testid="stCaptionContainer"], small { color: var(--text-dim) !important; font-size: 13.5px !important; }
+p, .stMarkdown p { font-size: 14.5px; line-height: 1.65; color: var(--text-dim); }
+
+/* ============ DATA FRAME ============ */
+div[data-testid="stDataFrame"] { border: 1px solid var(--line); border-radius: var(--radius-sm); overflow: hidden; font-size: 13.5px; }
+
+/* ============ MAPPING TABLE ============ */
+.map-table-wrap {
+    max-height: 400px; overflow-y: auto;
+    border: 1px solid var(--line); border-radius: var(--radius-sm);
+}
+.map-table { width: 100%; border-collapse: collapse; font-family: 'IBM Plex Mono', monospace; font-size: 13.5px; }
+.map-table thead th {
+    position: sticky; top: 0;
+    background: var(--bg-panel-2); color: var(--text-mute);
+    font-weight: 600; text-transform: uppercase; font-size: 11.5px; letter-spacing: 0.05em;
+    padding: 10px 12px; text-align: center; border-bottom: 1px solid var(--line);
+}
+.map-table tbody td {
+    padding: 7px 12px; text-align: center; color: var(--text-dim);
+    border-bottom: 1px solid var(--line);
+}
+.map-table tbody tr:hover { background: var(--bg-hover); }
+.map-table tbody tr:hover td { color: var(--text); }
+
+hr { border-color: var(--line); margin: 16px 0; }
+footer { visibility: hidden; }
+#MainMenu { visibility: hidden; }
+[data-testid="stToolbar"] { display: none; }
+
+/* ============ IMAGE FRAME ============ */
+.img-wrap {
+    background:
+        repeating-conic-gradient(#0d0d10 0% 25%, #101013 0% 50%) 50% / 16px 16px,
+        #0a0a0c;
+    border: 1px solid var(--line-2); border-radius: var(--radius-md); padding: 9px; margin-top: 5px;
+    position: relative;
+}
+.img-meta {
+    display: flex; justify-content: space-between; font-size: 12px;
+    font-family: 'IBM Plex Mono', monospace; color: var(--text-mute);
+    padding: 10px 3px 0; letter-spacing: 0.02em;
+}
+
+/* ============ FULLSCREEN / ZOOM BUTTON ============ */
+button[title="View fullscreen"],
+[data-testid="StyledFullScreenButton"] {
+    color: var(--accent-2) !important;
+    background: rgba(18,18,22,0.75) !important;
+    border-radius: var(--radius-sm) !important;
+}
+button[title="View fullscreen"] svg,
+[data-testid="StyledFullScreenButton"] svg {
+    stroke: var(--accent-2) !important;
+    fill: var(--accent-2) !important;
+    color: var(--accent-2) !important;
+}
+
+/* ============ MATPLOTLIB FIGURE TOOLBAR / ZOOM ICON ============ */
+[data-testid="stImage"] button svg,
+[data-testid="stImage"] [role="button"] svg {
+    stroke: var(--accent-2) !important;
+    color: var(--accent-2) !important;
+}
+
+/* ============ EMPTY ============ */
+.empty-state {
+    background: var(--bg-sunken); border: 1.5px dashed var(--line-2); border-radius: var(--radius-md);
+    padding: 40px 22px; text-align: center; margin-top: 4px;
+}
+.empty-state .ico { color: var(--text-mute); margin-bottom: 12px; opacity: 0.85; }
+.empty-title { font-size: 14.5px; color: var(--text-dim); font-weight: 600; margin-bottom: 5px; }
+.empty-sub { font-size: 12.5px; color: var(--text-mute); letter-spacing: 0.01em; }
+
+/* ============ BIG EMPTY ============ */
+.big-empty {
+    background:
+        radial-gradient(500px 220px at 50% -10%, rgba(255,107,26,0.08), transparent 70%),
+        var(--bg-panel);
+    border: 1px solid var(--line); border-radius: var(--radius-lg);
+    padding: 58px 30px; text-align: center; margin-top: 18px;
+}
+.big-empty .ico { color: var(--accent-2); margin-bottom: 16px; opacity: 0.9; }
+.big-empty h3 { font-size: 19px; color: var(--text); font-weight: 700; margin: 0 0 9px; }
+.big-empty p { font-size: 14.5px; color: var(--text-dim); margin: 0; }
+
+/* ============ PLOT CARD ============ */
+.plot-label {
+    font-size: 12.5px; font-weight: 600; letter-spacing: 0.03em; color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 12px; display: flex; align-items: center; gap: 9px;
+}
+.plot-swatch { width: 9px; height: 9px; border-radius: 2px; display: inline-block; box-shadow: 0 0 0 3px rgba(255,255,255,0.03); }
+
+/* File name chip (custom, used after Apply) */
+.file-chip {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+    background: var(--bg-panel-2); border: 1px solid var(--line); border-radius: var(--radius-sm);
+    padding: 14px 13px; font-size: 13px;
+    color: var(--text-dim); margin-bottom: 13px;
+}
+.file-chip .top-row { display: flex; align-items: center; gap: 8px; }
+.file-chip .ico { color: var(--accent-2); flex-shrink: 0; }
+.file-chip .name { color: var(--text); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.file-chip .size { color: var(--text-mute); font-size: 12px; }
+
+.note-box {
+    display: flex; gap: 11px; align-items: flex-start;
+    background: var(--bg-panel-2); border: 1px solid var(--line); border-radius: var(--radius-sm);
+    padding: 14px 15px;
+}
+.note-box .ico { color: var(--accent-2); margin-top: 2px; flex-shrink: 0; }
+.note-box p { margin: 0; font-size: 14px; color: var(--text-dim); }
