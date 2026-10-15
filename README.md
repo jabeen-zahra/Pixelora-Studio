@@ -15,23 +15,31 @@
   <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
 </p>
 
+<p>
+  <img src="https://img.shields.io/github/last-commit/jabeen-zahra/Pixelora-Studio?style=flat-square&color=ff8a3d" />
+  <img src="https://img.shields.io/github/license/jabeen-zahra/Pixelora-Studio?style=flat-square&color=ff8a3d" />
+  <img src="https://img.shields.io/badge/status-active%20development-3dd68c?style=flat-square" />
+</p>
+
 </div>
 
 ---
 
 ### <img src="https://api.iconify.design/lucide:book-open.svg?color=%23ff8a3d" width="20" valign="middle"/> About
 
-Pixelora Studio is designed to grow into a full suite of image processing tools — the operations listed in the sidebar outline where the studio is headed. The first implemented feature is **Histogram Specification**.
+Pixelora Studio is designed to grow into a full suite of image processing tools — the operations listed in the sidebar outline where the studio is headed. Implemented so far: **Histogram Specification**, **ACE Filter**, and **Pseudocolor in the Frequency Domain**.
 
 ---
 
 ## <img src="https://api.iconify.design/lucide:list.svg?color=%23ff8a3d" width="20" valign="middle"/> Table of Contents
 
 - [Histogram Specification](#histogram-specification)
+- [ACE Filter](#ace-filter)
+- [Pseudocolor (Frequency Domain)](#pseudocolor-frequency-domain)
 - [Tech Stack](#tech-stack)
 - [Installation](#installation)
 - [Docker (optional)](#docker-optional)
-- [Algorithm](#algorithm)
+- [Algorithms](#algorithms)
 - [Roadmap](#roadmap)
 
 ---
@@ -53,6 +61,37 @@ Remaps the tonal distribution of a source image so its histogram matches a refer
 
 ---
 
+## <img src="https://api.iconify.design/lucide:contrast.svg?color=%23ff8a3d" width="20" valign="middle"/> ACE Filter
+
+Adaptive Contrast Enhancement — boosts contrast differently across different regions of an image, based on each region's own local brightness and detail level, using a sliding window.
+
+| | |
+|:---:|:---|
+| <img src="https://api.iconify.design/lucide:upload.svg?color=%23ff8a3d" width="18"/> | Upload an image |
+| <img src="https://api.iconify.design/lucide:scan.svg?color=%23ff8a3d" width="18"/> | Choose a sliding window size (n × n) |
+| <img src="https://api.iconify.design/lucide:sliders-horizontal.svg?color=%23ff8a3d" width="18"/> | Adjust the gain (k1) and local-mean (k2) constants |
+| <img src="https://api.iconify.design/lucide:calculator.svg?color=%23ff8a3d" width="18"/> | Calculate global and local mean/standard-deviation manually |
+| <img src="https://api.iconify.design/lucide:wand-2.svg?color=%23ff8a3d" width="18"/> | Optionally apply a histogram stretch afterward |
+| <img src="https://api.iconify.design/lucide:bar-chart-2.svg?color=%23ff8a3d" width="18"/> | Compare original and enhanced histograms |
+| <img src="https://api.iconify.design/lucide:download.svg?color=%23ff8a3d" width="18"/> | Download the resulting image |
+
+---
+
+## <img src="https://api.iconify.design/lucide:palette.svg?color=%23ff8a3d" width="20" valign="middle"/> Pseudocolor (Frequency Domain)
+
+Turns a grayscale image into a false-color image by separating it into frequency bands and mapping each one to a different color channel.
+
+| | |
+|:---:|:---|
+| <img src="https://api.iconify.design/lucide:upload.svg?color=%23ff8a3d" width="18"/> | Upload an image |
+| <img src="https://api.iconify.design/lucide:waves.svg?color=%23ff8a3d" width="18"/> | Apply a Fourier transform |
+| <img src="https://api.iconify.design/lucide:sliders-horizontal.svg?color=%23ff8a3d" width="18"/> | Choose two cutoff frequencies to split the spectrum into three bands |
+| <img src="https://api.iconify.design/lucide:shuffle.svg?color=%23ff8a3d" width="18"/> | Assign lowpass, bandpass, and highpass results to red, green, and blue |
+| <img src="https://api.iconify.design/lucide:wand-2.svg?color=%23ff8a3d" width="18"/> | Optionally apply histogram equalization to each band |
+| <img src="https://api.iconify.design/lucide:download.svg?color=%23ff8a3d" width="18"/> | Download the resulting pseudocolor image |
+
+---
+
 ## <img src="https://api.iconify.design/lucide:wrench.svg?color=%23ff8a3d" width="20" valign="middle"/> Tech Stack
 
 <div align="center">
@@ -61,7 +100,7 @@ Remaps the tonal distribution of a source image so its histogram matches a refer
 |:---:|:---|
 | <img src="https://skillicons.dev/icons?i=python" width="32"/> | Core language |
 | <img src="https://skillicons.dev/icons?i=streamlit" width="32"/> | Web app framework & UI |
-| <img src="https://img.shields.io/badge/-NumPy-013243?style=flat-square&logo=numpy&logoColor=white" /> | Array operations & pixel mapping |
+| <img src="https://img.shields.io/badge/-NumPy-013243?style=flat-square&logo=numpy&logoColor=white" /> | Array operations, pixel mapping & Fourier transforms |
 | <img src="https://img.shields.io/badge/-Matplotlib-11557c?style=flat-square" /> | Histogram plotting |
 | <img src="https://img.shields.io/badge/-Pillow-7C3AED?style=flat-square" /> | Image I/O |
 | <img src="https://skillicons.dev/icons?i=docker" width="32"/> | Optional containerized deployment |
@@ -113,7 +152,9 @@ Then open **http://localhost:8501** in your browser.
 
 ---
 
-## <img src="https://api.iconify.design/lucide:settings.svg?color=%23ff8a3d" width="20" valign="middle"/> Algorithm
+## <img src="https://api.iconify.design/lucide:settings.svg?color=%23ff8a3d" width="20" valign="middle"/> Algorithms
+
+### Histogram Specification
 
 ```
 Source Image ──┐
@@ -130,15 +171,46 @@ Reference Image ┘                       ├─▶ Mapping Table ──▶ Outp
 
 > The core histogram calculations and pixel mapping are implemented **manually**, without built-in histogram matching functions.
 
+### ACE Filter
+
+```
+Input Image ──▶ Global Mean ──┐
+                               ├─▶ Sliding n×n Window ──▶ Local Mean & Std-Dev ──▶ Enhanced Pixel
+                               └───────────────────────────────────────────────┘
+```
+
+1. Calculate the mean of the entire image (the global mean)
+2. Slide an n × n window across the image
+3. At each window position, calculate the local mean and local standard deviation
+4. Combine the global mean, local mean, and local standard deviation to compute the enhanced pixel value
+5. Optionally apply a histogram stretch to the result
+
+> Border rows/columns the window can't fully cover are left unprocessed, and all statistics are computed manually with explicit loops.
+
+### Pseudocolor (Frequency Domain)
+
+```
+Image ──▶ Fourier Transform ──┬─▶ Lowpass  ──▶ Inverse FT ──▶ Red
+                               ├─▶ Bandpass ──▶ Inverse FT ──▶ Green
+                               └─▶ Highpass ──▶ Inverse FT ──▶ Blue
+```
+
+1. Perform a Fourier transform on the image
+2. Apply a lowpass, bandpass, and highpass filter to the transformed data, using two cutoff frequencies that divide the entire spectrum between them
+3. Perform an inverse Fourier transform on each of the three filtered results
+4. Use the three resulting images for the red, green, and blue color bands
+5. Optionally apply histogram equalization to each band as postprocessing
+
 ---
 
 ## <img src="https://api.iconify.design/lucide:map.svg?color=%23ff8a3d" width="20" valign="middle"/> Roadmap
 
-This project was built as a Digital Image Processing assignment. Only Histogram Specification is implemented so far — the rest of the sidebar reflects where the studio is headed.
+This project was built as a Digital Image Processing coursework series. The rest of the sidebar reflects where the studio is headed.
 
 - [x] Histogram Specification
+- [x] ACE Filter
+- [x] Pseudocolor (Frequency Domain)
 - [ ] Histogram Equalization
-- [ ] Image Filtering
 - [ ] Convolution
 - [ ] Segmentation
 
@@ -146,6 +218,6 @@ This project was built as a Digital Image Processing assignment. Only Histogram 
 
 <div align="center">
 
-Made as part of a Digital Image Processing assignment
+Made as part of a Digital Image Processing coursework series
 
 </div>
