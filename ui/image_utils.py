@@ -1,4 +1,4 @@
-"""Pure image / data helpers -- no Streamlit layout or markup here."""
+"""Pure image / data helpers -- no page layout or routing logic here."""
 
 from io import BytesIO
 
@@ -14,7 +14,7 @@ def load_image(file) -> np.ndarray:
 
 
 def image_bytes(image: np.ndarray) -> bytes:
-    """Encode a numpy image array as PNG bytes (for download buttons)."""
+    """Encode a numpy image array (grayscale or RGB) as PNG bytes for download buttons."""
     buffer = BytesIO()
     Image.fromarray(image).save(buffer, format="PNG")
     return buffer.getvalue()
@@ -64,3 +64,13 @@ def show_histogram(histogram, color: str = "#ff8a3d") -> None:
     fig.tight_layout(pad=0.8)
     st.pyplot(fig, use_container_width=True)
     plt.close(fig)
+
+
+def calculate_histogram_for_display(image_list):
+    """Lightweight 256-bin histogram used purely for display purposes on pages
+    that don't otherwise need the full core algorithm's histogram output."""
+    histogram = [0] * 256
+    for row in image_list:
+        for pixel in row:
+            histogram[int(pixel)] += 1
+    return histogram

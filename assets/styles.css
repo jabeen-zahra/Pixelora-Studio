@@ -363,3 +363,53 @@ button[title="View fullscreen"] svg,
 }
 .note-box .ico { color: var(--accent-2); margin-top: 2px; flex-shrink: 0; }
 .note-box p { margin: 0; font-size: 14px; color: var(--text-dim); }
+
+/* ============ SIDEBAR NAV BUTTONS (clickable page switcher) ============ */
+[data-testid="stSidebar"] div.stButton {
+    margin: 4px 10px;
+}
+[data-testid="stSidebar"] div.stButton > button {
+    justify-content: flex-start;
+    text-align: left;
+    min-height: 44px;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 0 16px;
+}
+[data-testid="stSidebar"] div.stButton > button[kind="secondary"] {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-dim);
+}
+[data-testid="stSidebar"] div.stButton > button[kind="secondary"]:hover {
+    background: var(--bg-hover);
+    border-color: transparent;
+    color: var(--text);
+}
+[data-testid="stSidebar"] div.stButton > button[kind="primary"] {
+    font-weight: 600;
+}
+
+/* ============ SLIDERS / NUMBER INPUTS (ACE + Pseudocolor controls) ============ */
+div[data-testid="stSlider"] [data-baseweb="slider"] > div > div {
+    background: var(--accent-2) !important;
+}
+div[data-testid="stNumberInput"] input,
+div[data-testid="stSelectbox"] div[data-baseweb="select"] {
+    background: var(--bg-panel-2) !important;
+    border-color: var(--line-2) !important;
+    color: var(--text) !important;
+}
+label[data-testid="stWidgetLabel"] p {
+    color: var(--text-dim) !important;
+    font-size: 13.5px !important;
+}
+
+/* ============ WARNING / VALIDATION NOTE ============ */
+.warn-box {
+    display: flex; gap: 11px; align-items: flex-start;
+    background: rgba(232,163,61,0.08); border: 1px solid rgba(232,163,61,0.35);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px; margin: 10px 0;
+}
+.warn-box p { margin: 0; font-size: 13.5px; color: var(--warn); }
